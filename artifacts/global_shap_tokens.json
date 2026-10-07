@@ -1,0 +1,207 @@
+{
+  "note": "signed_impact is the mean SHAP value computed only over test-set days where the token appears (not averaged over absent days, which mathematically washes signed values to ~0). mean_abs_shap is the overall importance magnitude across all days.",
+  "top_bullish_tokens": [
+    {
+      "token": "hopes",
+      "signed_impact": 0.013205417481445906,
+      "mean_abs_shap": 0.0006167317650960851
+    },
+    {
+      "token": "scrap",
+      "signed_impact": 0.009459697015351043,
+      "mean_abs_shap": 0.0001742333026677586
+    },
+    {
+      "token": "struggle",
+      "signed_impact": 0.00827350576952992,
+      "mean_abs_shap": 0.00025060783756929736
+    },
+    {
+      "token": "dublin",
+      "signed_impact": 0.007724695281954048,
+      "mean_abs_shap": 0.00012542540186762243
+    },
+    {
+      "token": "verdict",
+      "signed_impact": 0.007441370299550885,
+      "mean_abs_shap": 0.00024252065190793543
+    },
+    {
+      "token": "floating",
+      "signed_impact": 0.00733505450416225,
+      "mean_abs_shap": 0.00015904297726706634
+    },
+    {
+      "token": "volcano",
+      "signed_impact": 0.006663469761632662,
+      "mean_abs_shap": 0.0004362427526110245
+    },
+    {
+      "token": "fall",
+      "signed_impact": 0.006597256656818348,
+      "mean_abs_shap": 0.0006944337254268324
+    },
+    {
+      "token": "security council",
+      "signed_impact": 0.006590002707291469,
+      "mean_abs_shap": 0.000258786823309713
+    },
+    {
+      "token": "fatwa",
+      "signed_impact": 0.006233308108387626,
+      "mean_abs_shap": 0.00021941230097945996
+    },
+    {
+      "token": "melbourne",
+      "signed_impact": 0.0055337953138126245,
+      "mean_abs_shap": 0.0001740743007462105
+    },
+    {
+      "token": "tear gas",
+      "signed_impact": 0.005481855042205384,
+      "mean_abs_shap": 0.0002851023807465062
+    },
+    {
+      "token": "training",
+      "signed_impact": 0.005418265388689997,
+      "mean_abs_shap": 0.00029868285257669055
+    },
+    {
+      "token": "moving",
+      "signed_impact": 0.005270258692147479,
+      "mean_abs_shap": 0.0002181445407094121
+    },
+    {
+      "token": "sabotage",
+      "signed_impact": 0.004915036858849885,
+      "mean_abs_shap": 7.234594406197848e-05
+    },
+    {
+      "token": "spokesman",
+      "signed_impact": 0.0047627375372934055,
+      "mean_abs_shap": 0.0001961359052076338
+    },
+    {
+      "token": "perfect",
+      "signed_impact": 0.004557691567399255,
+      "mean_abs_shap": 0.00012157659581253697
+    },
+    {
+      "token": "bluefin tuna",
+      "signed_impact": 0.004545898596859066,
+      "mean_abs_shap": 6.532858316682156e-05
+    },
+    {
+      "token": "deploy",
+      "signed_impact": 0.004531078380078455,
+      "mean_abs_shap": 0.00020069310826183886
+    },
+    {
+      "token": "white house",
+      "signed_impact": 0.0044591600224571015,
+      "mean_abs_shap": 0.0003277063449524309
+    }
+  ],
+  "top_bearish_tokens": [
+    {
+      "token": "chevron",
+      "signed_impact": -0.01193373337870334,
+      "mean_abs_shap": 0.000584247524922113
+    },
+    {
+      "token": "arm",
+      "signed_impact": -0.009187949682196368,
+      "mean_abs_shap": 0.0003887503476766305
+    },
+    {
+      "token": "billionaire",
+      "signed_impact": -0.008411309960116018,
+      "mean_abs_shap": 0.0005989843501784575
+    },
+    {
+      "token": "prominent",
+      "signed_impact": -0.00764963190637008,
+      "mean_abs_shap": 0.0005670339135945185
+    },
+    {
+      "token": "sanctions",
+      "signed_impact": -0.006297313232801782,
+      "mean_abs_shap": 0.0011801904046905363
+    },
+    {
+      "token": "hero",
+      "signed_impact": -0.005782187586650014,
+      "mean_abs_shap": 0.00018863940039941924
+    },
+    {
+      "token": "run",
+      "signed_impact": -0.005661703436767073,
+      "mean_abs_shap": 0.0015283588905377577
+    },
+    {
+      "token": "corporate",
+      "signed_impact": -0.005533156876610256,
+      "mean_abs_shap": 0.00036593490701036704
+    },
+    {
+      "token": "supposed",
+      "signed_impact": -0.00501449581565054,
+      "mean_abs_shap": 8.592538818092238e-05
+    },
+    {
+      "token": "cannabis",
+      "signed_impact": -0.004866419506636311,
+      "mean_abs_shap": 0.0005933648281425633
+    },
+    {
+      "token": "hacking",
+      "signed_impact": -0.004444072962448414,
+      "mean_abs_shap": 0.0004383160388436187
+    },
+    {
+      "token": "emails",
+      "signed_impact": -0.004225262147842028,
+      "mean_abs_shap": 0.00036230221729967993
+    },
+    {
+      "token": "2008",
+      "signed_impact": -0.0041964148124767515,
+      "mean_abs_shap": 0.00023331182142336503
+    },
+    {
+      "token": "hacking scandal",
+      "signed_impact": -0.0039387361981586145,
+      "mean_abs_shap": 7.622968045187789e-05
+    },
+    {
+      "token": "important",
+      "signed_impact": -0.003835967794112148,
+      "mean_abs_shap": 0.0002577902193744458
+    },
+    {
+      "token": "medicine",
+      "signed_impact": -0.0036356139016885886,
+      "mean_abs_shap": 0.00020417346886411072
+    },
+    {
+      "token": "develop",
+      "signed_impact": -0.0035821798848162355,
+      "mean_abs_shap": 0.00010322506408782747
+    },
+    {
+      "token": "republic",
+      "signed_impact": -0.0035567423392875394,
+      "mean_abs_shap": 0.00043146653671976534
+    },
+    {
+      "token": "total",
+      "signed_impact": -0.0034484528544534323,
+      "mean_abs_shap": 0.00038464490994162716
+    },
+    {
+      "token": "abdullah",
+      "signed_impact": -0.003299222351083853,
+      "mean_abs_shap": 0.00013201350675362458
+    }
+  ]
+}

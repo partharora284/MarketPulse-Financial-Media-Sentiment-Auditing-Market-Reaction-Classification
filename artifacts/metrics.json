@@ -1,0 +1,101 @@
+{
+  "macro_f1": 0.49780330242726295,
+  "directional_accuracy": 0.5,
+  "precision": 0.5071090047393365,
+  "recall": 0.5572916666666666,
+  "confusion_matrix": [
+    [
+      82,
+      104
+    ],
+    [
+      85,
+      107
+    ]
+  ],
+  "n_test": 378,
+  "model_selection": {
+    "selected_model": "random_forest",
+    "selection_metric": "macro_f1",
+    "candidates": {
+      "logistic_regression": {
+        "hyperparameters": {
+          "model_type": "LogisticRegression",
+          "C": 1.0,
+          "class_weight": "balanced",
+          "max_iter": 1000
+        },
+        "metrics": {
+          "macro_f1": 0.44669950738916253,
+          "directional_accuracy": 0.4497354497354497,
+          "precision": 0.46261682242990654,
+          "recall": 0.515625,
+          "confusion_matrix": [
+            [
+              71,
+              115
+            ],
+            [
+              93,
+              99
+            ]
+          ],
+          "n_test": 378
+        }
+      },
+      "xgboost": {
+        "hyperparameters": {
+          "model_type": "XGBClassifier",
+          "n_estimators": 150,
+          "max_depth": 4,
+          "learning_rate": 0.05,
+          "subsample": 0.8,
+          "colsample_bytree": 0.8
+        },
+        "metrics": {
+          "macro_f1": 0.49566191701250933,
+          "directional_accuracy": 0.5211640211640212,
+          "precision": 0.5202952029520295,
+          "recall": 0.734375,
+          "confusion_matrix": [
+            [
+              56,
+              130
+            ],
+            [
+              51,
+              141
+            ]
+          ],
+          "n_test": 378
+        }
+      },
+      "random_forest": {
+        "hyperparameters": {
+          "model_type": "RandomForestClassifier",
+          "n_estimators": 200,
+          "max_depth": 6,
+          "min_samples_leaf": 3,
+          "class_weight": "balanced"
+        },
+        "metrics": {
+          "macro_f1": 0.49780330242726295,
+          "directional_accuracy": 0.5,
+          "precision": 0.5071090047393365,
+          "recall": 0.5572916666666666,
+          "confusion_matrix": [
+            [
+              82,
+              104
+            ],
+            [
+              85,
+              107
+            ]
+          ],
+          "n_test": 378
+        }
+      }
+    }
+  }
+}

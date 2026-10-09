@@ -168,8 +168,20 @@ def load_artifacts(artifacts_dir: Path):
     # audit_metrics.py hasn't been run yet.
     explainer_path = artifacts_dir / "shap_explainer.joblib"
     shap_values_path = artifacts_dir / "test_shap_values.joblib"
-    precomputed_explainer = joblib.load(explainer_path) if explainer_path.exists() else None
-    precomputed_shap_values = joblib.load(shap_values_path) if shap_values_path.exists() else None
+    
+    # Try loading precomputed SHAP objects; if pickled across different OS/Python versions,
+    # safely fall back to None so app.py computes them on the fly without crashing.
+    try:
+        precomputed_explainer = joblib.load(explainer_path) if explainer_path.exists() else None
+    except Exception as e:
+        logger.warning(f"Could not load precomputed explainer ({e}); using on-the-fly fallback.")
+        precomputed_explainer = None
+
+    try:
+        precomputed_shap_values = joblib.load(shap_values_path) if shap_values_path.exists() else None
+    except Exception as e:
+        logger.warning(f"Could not load precomputed SHAP values ({e}); using on-the-fly fallback.")
+        precomputed_shap_values = None
 
     return (
         tfidf, model, test_df, sliced_df, global_tokens, metrics,

@@ -377,6 +377,73 @@ def build_sector_sentiment_chart(sector_probs: pd.Series) -> go.Figure:
     return fig
 
 
+def build_clean_token_influence_chart(shap_row, top_n: int = 10):
+    """
+    Builds a clean, presentation-ready horizontal bar chart for token impact.
+    Converts subtle probability shifts into intuitive percentage-point impacts
+    (+0.35% / -0.42%) so evaluators see exact word drivers without +0/-0 rounding.
+    """
+    # Extract values and feature names from the SHAP Explanation object
+    vals = np.array(shap_row.values).flatten()
+    names = np.array(shap_row.feature_names)
+
+    # Filter strictly to words present in today's digest (non-zero SHAP impact)
+    active_mask = np.abs(vals) > 1e-6
+    if not np.any(active_mask):
+        fig, ax = plt.subplots(figsize=(8, 3))
+        ax.text(0.5, 0.5, "No influential headline tokens found for this date", 
+                ha="center", va="center", color=COLOR_MUTED)
+        ax.axis("off")
+        return fig
+
+    active_vals = vals[active_mask] * 100.0  # Convert to percentage-point scale
+    active_names = names[active_mask]
+
+    # Pick top N tokens by absolute magnitude
+    top_indices = np.argsort(np.abs(active_vals))[-top_n:]
+    top_vals = active_vals[top_indices]
+    top_names = active_names[top_indices]
+
+    # Colors: Emerald Green for Bullish (pushes Up), Coral Red for Bearish (pushes Down)
+    colors = [COLOR_BULLISH if v >= 0 else COLOR_BEARISH for v in top_vals]
+
+    fig, ax = plt.subplots(figsize=(8, 4.8), dpi=120)
+    bars = ax.barh(top_names, top_vals, color=colors, height=0.6, edgecolor="none")
+
+    # Center reference line at 0.00%
+    ax.axvline(0, color="#6B7280", linestyle="--", linewidth=0.8, alpha=0.7)
+    ax.set_xlabel("Directional Influence on Prediction (% Shift)", fontsize=10, labelpad=8, fontweight="bold")
+    ax.set_title("Top Headline Drivers (Directional Probability Impact)", fontsize=11, fontweight="bold", pad=12)
+
+    # Calculate symmetrical x-axis limit with breathing room for text labels
+    max_bound = max(abs(top_vals.min()), abs(top_vals.max()), 0.05) * 1.45
+    ax.set_xlim(-max_bound, max_bound)
+
+    # Render clean +/- percentage tags directly on each bar
+    for bar in bars:
+        w = bar.get_width()
+        txt = f"+{w:.2f}%" if w >= 0 else f"{w:.2f}%"
+        offset = max_bound * 0.03 if w >= 0 else -max_bound * 0.03
+        ha = "left" if w >= 0 else "right"
+        ax.text(
+            w + offset,
+            bar.get_y() + bar.get_height() / 2,
+            txt,
+            va="center",
+            ha=ha,
+            fontsize=9,
+            fontweight="bold",
+            color="#E5E7EB" if plt.rcParams.get("text.color") == "white" else "#1F2937"
+        )
+
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["left"].set_color("#4B5563")
+    ax.spines["bottom"].set_color("#4B5563")
+    ax.tick_params(axis="both", which="both", labelsize=9)
+    plt.tight_layout()
+    return fig
+
 def build_sector_coverage_chart(sector_counts: pd.Series) -> go.Figure:
     fig = go.Figure(
         go.Bar(
@@ -551,7 +618,14 @@ def render_audit_explorer_tab(
     m1, m2, m3 = st.columns(3)
     m1.metric("Actual", "Up" if row["Label"] == 1 else "Down")
     m2.metric("Predicted", "Up" if pred == 1 else "Down")
-    m3.metric("Bullish probability", f"{prob:.2f}")
+  
+    shift = (prob - 0.50) * 100.0
+    shift_str = f"+{shift:.2f}%" if shift >= 0 else f"{shift:.2f}%"
+    m3.metric(
+        "Bullish probability",
+        f"{prob:.3f}",
+        delta=f"{shift_str} vs 50% baseline"
+    )
 
     if pred != row["Label"]:
         st.warning("⚠️ This is a misclassified day — a good candidate for local SHAP inspection.")
@@ -578,9 +652,8 @@ def render_audit_explorer_tab(
             shap_row = shap_row[:, :, 1]
         shap_row = attach_feature_names(shap_row, tfidf.get_feature_names_out())[0]
 
-    fig = plt.figure(figsize=(8, 5))
-    shap.plots.waterfall(shap_row, max_display=15, show=False)
-    st.pyplot(fig, width="stretch")
+    fig = build_clean_token_influence_chart(shap_row, top_n=10)
+    st.pyplot(fig, clear_figure=True)
     plt.close(fig)
 
 
